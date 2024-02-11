@@ -36,18 +36,15 @@ const playRound = (playerSelection, computerSelection) => {
 const resultDeclare = (pScore, cScore) => {
 
   if(pScore>cScore){
-    console.log(`WIN!!! Your score: ${pScore} Goldenface: ${cScore} Michael Scarn once again saved the world!!\nMichael: My name is Scarn and I'm here to say, I'm about to do the Scarn in a major way...`,
-    "color:gold")
+    console.log(`%cWIN!!! Your score: ${pScore} Goldenface: ${cScore} Michael Scarn once again saved the world!!\nMichael: My name is Scarn and I'm here to say, I'm about to do the Scarn in a major way...`,
+    "color:#DAF7A6")
   }
-
   else if(pScore<cScore){
-    console.log(`Ha ha!! Your score: ${pScore} Goldenface: ${cScore} You LOST!!!\nMichael: It's Toby's fault!`, "color:red")
+    console.log(`%cHa ha!! Your score: ${pScore} Goldenface: ${cScore} You LOST!!!\nMichael: It's Toby's fault!`, "color:hotpink")
   }
-
   else{
     console.log(`It's a tie!! Your score: ${pScore} Goldenface: ${cScore} No! Oh God No!!`)
   }
-
   return
 
 }
@@ -82,22 +79,22 @@ const game = () => {
     let statementChocie = Math.floor(Math.random()*3)
 
     if(result==="win"){
-      console.log(`Round ${count}/5 [**WIN**] ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
+      console.log(`Round ${count}/5 %c[**WIN**]%c ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
       ${Object.keys(winStatements)[statementChocie]}
-      ${winStatements[Object.keys(winStatements)[statementChocie]]}`)
+      ${winStatements[Object.keys(winStatements)[statementChocie]]}`, "color: gold")
       pScore++
       count++
     }
     else if(result==="tie"){
-      console.log(`Round ${count}/5 [**TIE**] ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
+      console.log(`Round ${count}/5 %c[**TIE**]%c ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
       Toby: Hey Michael
-      Michael: Not Now TOBY!`)
+      Michael: Not Now TOBY!`, "color:#ADD8E6")
       count++
     }
     else{
-      console.log(`Round ${count}/5 [**LOSE**] ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
+      console.log(`Round ${count}/5 %c[**LOSE**]%c ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
       ${Object.keys(loseStatements)[statementChocie]}
-      ${loseStatements[Object.keys(loseStatements)[statementChocie]]}`)
+      ${loseStatements[Object.keys(loseStatements)[statementChocie]]}`, "color:hotpink")
       cScore++
       count++
     }
@@ -122,9 +119,9 @@ const loseStatements = {
   "Samuel: Oh my motherboard.!": "Michael: Damn it Dwight!"
 }
 
-console.log("-".repeat(10) + "THREAT LEVEL MIDNIGHT" + "-".repeat(10), "color:red")
-console.log("Last time Michael Scarn was able to stop Goldenface from blowing up the stadium and defeat him.\nBut now, he is back and this time with an upgrade, as an AI!!"        
-)
-console.log("Once again, the world needs Scarn, Michael Scarn and his faithful robot butler Samuel!\nMichael: Looks like there's gonna be a cleanup on Aisle Five!")
+console.log("%c" + "-".repeat(10) + "THREAT LEVEL MIDNIGHT" + "-".repeat(10), "color:red")
+console.log("%cLast time Michael Scarn was able to stop Goldenface from blowing up the stadium and defeat him.\nBut now, he is back and this time with an upgrade, as an AI!!"
+, "color:#ADD8E6")
+console.log("%cOnce again, the world needs Scarn, Michael Scarn and his faithful robot butler Samuel!\nMichael: Looks like there's gonna be a cleanup on Aisle Five!", "color:#ADD8E6")
 
 game()
