@@ -3,7 +3,25 @@ const computerPlay = () => {
     let selection = Math.floor(Math.random() * 3)
     return choices[selection]
 }
-  
+
+const playerSelection = () => {
+
+  const selections = ["rock", "paper", "scissors"]
+  let pSelection = prompt("Your move Scarn: Rock, Paper or Scissor?")
+
+  if(pSelection === null){
+    let confirmQuit = confirm("Giving up so easily Scarn?")
+    return confirmQuit===true?"quit":playerSelection()
+  }
+
+  if(!selections.includes(pSelection.trim().toLowerCase())){
+    console.log("[**WRONG CHOICE. Choose Rock, Paper or Scissors**] Toby interrupted.!\nToby: You can't be doing that during working hours.\nMichael: Why are you the way that you are?")
+    return playerSelection()
+  }
+  else{
+    return pSelection
+  }
+}
 
 const playRound = (playerSelection, computerSelection) => {
   const results = {
@@ -15,66 +33,86 @@ const playRound = (playerSelection, computerSelection) => {
     return result
 }
 
+const resultDeclare = (pScore, cScore) => {
+
+  if(pScore>cScore){
+    console.log(`WIN!!! Your score: ${pScore} Goldenface: ${cScore} Michael Scarn once again saved the world!!\nMichael: My name is Scarn and I'm here to say, I'm about to do the Scarn in a major way...`,
+    "color:gold")
+  }
+
+  else if(pScore<cScore){
+    console.log(`Ha ha!! Your score: ${pScore} Goldenface: ${cScore} You LOST!!!\nMichael: It's Toby's fault!`, "color:red")
+  }
+
+  else{
+    console.log(`It's a tie!! Your score: ${pScore} Goldenface: ${cScore} No! Oh God No!!`)
+  }
+
+  return
+
+}
+
+const replay = () => {
+  let replay = confirm("Mr Scarn, the President need you again, Goldenface is not truly defeated yet. Do you accept?")
+
+  if(replay===true){
+    location.reload()
+  }
+  else{
+    return
+  }
+}
+
 const game = () => {
   let count = 1;
   let pScore = 0;
   let cScore = 0;
 
-  const selections = ["rock", "paper", "scissors"]
-
   while(count <= 5){
 
-    let playerSelection = prompt("Choose: Rock, Paper or Scissor: ")
+    let pSelection = playerSelection()
 
-    if(!selections.includes(playerSelection.trim().toLowerCase())){
-      console.log("[**WRONG CHOICE. Choose Rock, Paper or Scissors**] Toby interrupted.!\nToby: You can't be doing that during working hours.\nMichael: Why are you the way that you are?")
+    if(pSelection==="quit"){
+      alert("Scarn: I'm getting too old for this")
+      return
     }
+ 
+    let computerSelection = computerPlay()
+    let result = playRound(pSelection, computerSelection)
+    let statementChocie = Math.floor(Math.random()*3)
 
+    if(result==="win"){
+      console.log(`Round ${count}/5 [**WIN**] ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
+      ${Object.keys(winStatements)[statementChocie]}
+      ${winStatements[Object.keys(winStatements)[statementChocie]]}`)
+      pScore++
+      count++
+    }
+    else if(result==="tie"){
+      console.log(`Round ${count}/5 [**TIE**] ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
+      Toby: Hey Michael
+      Michael: Not Now TOBY!`)
+      count++
+    }
     else{
-      let computerSelection = computerPlay()
-      let result = playRound(playerSelection, computerSelection)
-      let statementChocie = Math.floor(Math.random()*3)
-  
-      if(result==="win"){
-        console.log(`Round ${count}/5 [**WIN**] ==> You chose: ${playerSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
-        ${Object.keys(winStatements)[statementChocie]}
-        ${winStatements[Object.keys(winStatements)[statementChocie]]}`)
-        pScore++
-        count++
-      }
-      else if(result==="tie"){
-        console.log(`Round ${count}/5 [**TIE**] ==> You chose: ${playerSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
-        Toby: Hey Michael
-        Michael: Not Now TOBY!`)
-        count++
-      }
-      else{
-        console.log(`Round ${count}/5 [**LOSE**] ==> You chose: ${playerSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
-        ${Object.keys(loseStatements)[statementChocie]}
-        ${loseStatements[Object.keys(loseStatements)[statementChocie]]}`)
-        cScore++
-        count++
-      }
+      console.log(`Round ${count}/5 [**LOSE**] ==> You chose: ${pSelection.trim().toLowerCase()}, Goldenface: ${computerSelection}.
+      ${Object.keys(loseStatements)[statementChocie]}
+      ${loseStatements[Object.keys(loseStatements)[statementChocie]]}`)
+      cScore++
+      count++
     }
 
   }
 
-  if(pScore>cScore){
-    console.log(`WIN!!! Your score: ${pScore} Goldenface: ${cScore} Michael Scarn once again saved the world!!\nMichael: My name is Scarn and I'm here to say, I'm about to do the Scarn in a major way...`)
-  }
+  resultDeclare(pScore, cScore)
 
-  else if(pScore<cScore){
-    console.log(`Ha ha!! Your score: ${pScore} Goldenface: ${cScore} You LOST!!!\nMichael: It's Toby's fault!`)
-  }
-
-  else{
-    console.log("We tied!!")
-  }
+  replay()
+  return
 }
 
 const winStatements = {
-  "Goldenface: You win this time..": "Michael: I'm coming for you Golderface!",
-  "Goldenface: This is not over yet..": "Michael: WHERE'S THE BOMB!?",
+  "Goldenface: You win this time..": "Michael: I'm coming for you Goldenface!",
+  "Goldenface: This is not over yet..": "Michael: Hey Goldenface, Go Puck yourself!",
   "Goldenface: This is getting hard!": "Michael: That's what she said!"
 }
 
@@ -84,7 +122,7 @@ const loseStatements = {
   "Samuel: Oh my motherboard.!": "Michael: Damn it Dwight!"
 }
 
-console.log("-".repeat(10) + "THREAT LEVEL MIDNIGHT" + "-".repeat(10))
+console.log("-".repeat(10) + "THREAT LEVEL MIDNIGHT" + "-".repeat(10), "color:red")
 console.log("Last time Michael Scarn was able to stop Goldenface from blowing up the stadium and defeat him.\nBut now, he is back and this time with an upgrade, as an AI!!"        
 )
 console.log("Once again, the world needs Scarn, Michael Scarn and his faithful robot butler Samuel!\nMichael: Looks like there's gonna be a cleanup on Aisle Five!")
